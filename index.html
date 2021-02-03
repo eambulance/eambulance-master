@@ -8,7 +8,12 @@
   <body>
 
     <div id="login_div" class="main-div">
+      <div>
+        <img src="hospital1.svg" alt="hospital">
+      </div>
+      <br> 
       <h3>Hospital Dashboard | Login</h3>
+      <br>
       <input type="email" placeholder="Email..." id="email_field" />
       <input type="password" placeholder="Password..." id="password_field" />
 
@@ -16,12 +21,15 @@
     </div>
 
     <div id="user_div" class="loggedin-div">
-      <h3>Welcome User</h3>
+      <div>
+        <img src="hospital.svg" alt="hospital">
+      </div> 
+      <h3>Emergency Dashboard</h3>
       <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
       <div id="root"></div>
       
       <div class="container mt-3">
-        <table class="table table-light text-black">
+        <table class="table table-striped text-black">
           <thead>
             <th>Name</th>
             <th>Age</th>
@@ -37,11 +45,14 @@
       </div>
       
       <br>
+      <p>Accept/Reject Patient?</p>
       <input type="text" id="statusup">
       <br>   <br>
       <button type="submit" id="send">Send</button>
       <br>
       <button onclick="logout()">Logout</button>
+      <br>   <br> 
+    
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
