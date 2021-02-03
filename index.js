@@ -51,3 +51,41 @@ function getStatus(e){
 function logout(){
   firebase.auth().signOut();
 }
+
+function SelectAllData(){
+  firebase.database().ref('eambulance').once('value',
+  function(AllRecords){
+    AllRecords.forEach(
+      function(CurrentRecord){
+        var name1 = CurrentRecord.val().name;
+        var age1 = CurrentRecord.val().age;
+        var gender = CurrentRecord.val().sex;
+        var blreq = CurrentRecord.val().blood_req;
+        var bl = CurrentRecord.val().blood;
+        var ven = CurrentRecord.val().ventilator;
+        AddItemstoTable(name1,age1,gender,blreq,bl,ven);
+      }
+    );
+  })
+}
+
+window.onload = SelectAllData;
+
+function AddItemstoTable(name1,age1,gender,blreq,bl,ven){
+  var tbody = document.getElementById('tbody1');
+  var trow = document.createElement('tr');
+  var td1 = document.createElement('td');
+  var td2 = document.createElement('td');
+  var td3 = document.createElement('td');
+  var td4 = document.createElement('td');
+  var td5 = document.createElement('td');
+  var td6 = document.createElement('td');
+  td1.innerHTML = name1;
+  td2.innerHTML = age1;
+  td3.innerHTML = gender;
+  td4.innerHTML = blreq;
+  td5.innerHTML = bl;
+  td6.innerHTML = ven;
+  trow.appendChild(td1); trow.appendChild(td2); trow.appendChild(td3); trow.appendChild(td4); trow.appendChild(td5); trow.appendChild(td6);
+  tbody.appendChild(trow);
+}

@@ -1,57 +1,82 @@
 <html>
-<head>
-  <title>Hospital Dashboard</title>
-  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <title>Hospital Dashboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
 
-  <div id="login_div" class="main-div">
-    <h3>Hospital Dashboard | Login</h3>
-    <input type="email" placeholder="Email..." id="email_field" />
-    <input type="password" placeholder="Password..." id="password_field" />
+    <div id="login_div" class="main-div">
+      <h3>Hospital Dashboard | Login</h3>
+      <input type="email" placeholder="Email..." id="email_field" />
+      <input type="password" placeholder="Password..." id="password_field" />
 
-    <button onclick="login()">Login to Account</button>
-  </div>
+      <button onclick="login()">Login to Account</button>
+    </div>
 
-  <div id="user_div" class="loggedin-div">
-    <h3>Welcome User</h3>
-    <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
-    <div id="root"></div>
-    <br>
-    <input type="text" name="statusupdate" id="statusup">
-    <br>   <br>
-    <button type="submit">Send</button>
-    <br>
-    <button onclick="logout()">Logout</button>
-  </div>
+    <div id="user_div" class="loggedin-div">
+      <h3>Welcome User</h3>
+      <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+      <div id="root"></div>
+      
+      <div class="container mt-3">
+        <table class="table table-light text-black">
+          <thead>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Blood Req?</th>
+            <th>Blood Group</th>
+            <th>Ventilator</th>
+          </thead>
+          <tbody id="tbody1">
+  
+          </tbody>
+        </table>
+      </div>
+      
+      <br>
+      <input type="text" id="statusup">
+      <br>   <br>
+      <button type="submit" id="send">Send</button>
+      <br>
+      <button onclick="logout()">Logout</button>
+    </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js"></script>
+    
+    <script> 
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDy3BTZ7PKWOulSQh7VBy3iU9LL0GxsTWg",
+        authDomain: "eambulance1.firebaseapp.com",
+        databaseURL: "https://eambulance1-default-rtdb.firebaseio.com",
+        projectId: "eambulance1",
+        storageBucket: "eambulance1.appspot.com",
+        messagingSenderId: "1056460329081",
+        appId: "1:1056460329081:web:a3b0e2cd1df037eb91c4a8",
+        measurementId: "G-TTB7V6KYXW"
+      };
+      firebase.initializeApp(config);
 
+      var firebaseRef = firebase.database().ref('/hospital/status');
+      var el = document.querySelector("#send")
+      if (el) {  
+        el.addEventListener("click", ()=>{
+          const statusup = document.getElementById('statusup').value;
+          firebaseRef.set(statusup);
+          console.log("123");
+        });
+      }
+        
+    </script>
+    <script src="index.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDy3BTZ7PKWOulSQh7VBy3iU9LL0GxsTWg",
-      authDomain: "eambulance1.firebaseapp.com",
-      databaseURL: "https://eambulance1-default-rtdb.firebaseio.com",
-      projectId: "eambulance1",
-      storageBucket: "eambulance1.appspot.com",
-      messagingSenderId: "1056460329081",
-      appId: "1:1056460329081:web:a3b0e2cd1df037eb91c4a8",
-      measurementId: "G-TTB7V6KYXW"
-    };
-    firebase.initializeApp(config);
-    var firebaseRef = firebase.database().ref("eambulance1");
-    firebaseRef.on("value",function(snapshot){
-      snapshot.forEach(function(element){
-        document.querySelector("#root").innerHTML +=`
-          <div>${element.val()}</div>
-          `
-      });
-    });
-  </script>
-  <script src="index.js"></script>
-
-</body>
+  </body>
 </html>
+
+
+
